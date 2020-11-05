@@ -17,6 +17,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
     const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
+    var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 20
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        });
+    
+        mymap.addLayer(osmLayer);
     console.log(mymap)
   }
  
