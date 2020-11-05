@@ -36,6 +36,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
-        
+
   }
  
