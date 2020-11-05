@@ -5,11 +5,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
       navigator.geolocation.getCurrentPosition(success);
     } 
     else {
-
       alert('Votre Geolocalisation est inactive')
     }
   });
-
 
   function success(pos) {
     var crd = pos.coords;
@@ -18,8 +16,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     console.log(`Longitude : ${crd.longitude}`);
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
-    console.log(latitude)
-    const mymap = L.map('mapid').setView([latitude, longitude ], 13);
+    const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
     console.log(mymap)
   }
  
