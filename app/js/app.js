@@ -37,5 +37,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
 
+    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&facet=typeemplacement&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=genre&facet=espece&facet=varieteoucultivar&facet=circonferenceencm&facet=hauteurenm&facet=stadedeveloppement&facet=remarquable');
+
+  fetch(myRequest)
+    .then(response => response.json())
+    .then(data => {
+      for (const tree of data.records) {
+        console.log(tree)
+        const latitudeTree = tree.fields.geo_point_2d[0];
+        const longitudeTree = tree.fields.geo_point_2d[1];
+        L.marker([ latitudeTree, longitudeTree ], {icon: treeIcon}).addTo(mymap);
+      }
+  });
+
   }
  
