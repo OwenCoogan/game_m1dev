@@ -1,0 +1,19 @@
+{
+  "name": "game_m1dev",
+  "version": "1.0.0",
+  "description": "WOOPEE ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owie05/homeManagerV1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owie05/homeManagerV1/issues"
+  },
+  "homepage": "https://github.com/owie05/homeManagerV1#readme"
+}
