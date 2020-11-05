@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
 
-    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+1000');
+    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable');
 
   fetch(myRequest)
     .then(response => response.json())
