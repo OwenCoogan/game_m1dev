@@ -28,11 +28,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     header.appendChild(positionLongHolder)
 
     // UPDATE SCORE AND POSITION
-    setInterval(function(){ updateData(positionLatHolder,positionLongHolder); }, 50000);
 
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
-    const TreeCount = "1000"
+    const TreeCount = "100"
     function updateData(positionLatHolder,positionLongHolder){
       scoreHolder.innerHTML = a;
       positionLatHolder.innerHTML = positionLat;
@@ -52,7 +51,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
-    
 
     //API Call
 
@@ -75,25 +73,36 @@ window.addEventListener("DOMContentLoaded", (event) => {
           fillColor: 'transparent',
           fillOpacity: 0.1,
           radius: 50
-      }).addTo(mymap);
+        }).addTo(mymap)
+      .on('click',function(){
+        AddScore();
+      });
       }
-      
     });
-
-    
   }
   
   //SCORE STORAGE
   
-  const buttonTest = document.querySelector("#button-test")
-  buttonTest .addEventListener("click", AddScore)
-  
-  function AddScore(){
+  function AddScore(this){
+    if(this.classList.contains("checked-zone")){
+      alert('you clicked this element once')
+    }
+    else{
+      var aUpdated = a++;
+      console.log(aUpdated)
+      localStorage.setItem('Score', a );
+      scoreHolder.innerHTML = a; 
+    }
     var aUpdated = a++;
     console.log(aUpdated)
     localStorage.setItem('Score', a );
     scoreHolder.innerHTML = a;
   }
+
+
+  // DRAW ZONES
+
+  
 
 
 
