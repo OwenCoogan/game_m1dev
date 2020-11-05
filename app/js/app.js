@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     mymap.addLayer(osmLayer);
     var treeIcon = L.icon({
       iconUrl: '../app/src/46564.svg',
-      iconSize:     [10, 10], // size of the icon
+      iconSize:     [10, 95], // size of the icon
       iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
 
-    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable');
+    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+5000');
 
   fetch(myRequest)
     .then(response => response.json())
