@@ -8,14 +8,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
       alert('Votre Geolocalisation est inactive')
     }
   });
-
+  const header=document.querySelector('header')
+  const positionHolder= document.createElement("div");
   function success(pos) {
-    var crd = pos.coords;
-    console.log('Votre position actuelle est :');
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude : ${crd.longitude}`);
+    const crd = pos.coords;
+    const positionLat = document.createTextNode(`Latitude : ${crd.latitude}`);
+    const positionLong = document.createTextNode(`Longitude : ${crd.longitude}`);
+    header.appendChild(positionLat)
+    header.appendChild(positionLong)
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
+
     const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
     var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -24,7 +27,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     mymap.addLayer(osmLayer);
     var treeIcon = L.icon({
       iconUrl: '../app/src/46564.svg',
-      iconSize:     [10, 10], // size of the icon
+      iconSize:     [10, 95], // size of the icon
       iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
@@ -36,7 +39,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
 
-    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+1000');
+    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+5000');
 
   fetch(myRequest)
     .then(response => response.json())
@@ -47,6 +50,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
         L.marker([ latitudeTree, longitudeTree ], {icon: treeIcon}).addTo(mymap);
       }
     });
-
   }
  
