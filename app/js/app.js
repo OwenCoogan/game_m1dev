@@ -1,5 +1,5 @@
 window.addEventListener("DOMContentLoaded", (event) => {
- 
+    //Map Management
     if(navigator.geolocation) {
       console.log('Geolocalisation OK')
       navigator.geolocation.getCurrentPosition(success);
@@ -28,16 +28,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     header.appendChild(positionLongHolder)
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
-
+    const TreeCount = "1000"
     function updateData(positionLatHolder,positionLongHolder){
       scoreHolder.innerHTML = a;
       positionLatHolder.innerHTML = positionLat;
       positionLongHolder.innerHTML = positionLong;
-      console.log(updatedData)
     }
-  
-    setInterval(function(){ updateData(); }, 100);
-
+    setInterval(function(){ updateData(positionLatHolder,positionLongHolder); }, 100);
     const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
     var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -57,12 +54,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     L.marker([ latitude, longitude ], {icon: gpsIcon}).addTo(mymap);
-
-
-    const myRequest = new Request('https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+1000');
     
-  
-  fetch(myRequest)
+
+    //API Call
+
+    const requestURL = "https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=" + latitude + "%2C" + longitude + "%2C+" + TreeCount;
+
+    // Fausse URL ( Pas de datas sur le Val d'oise ;) )
+    const FakerequestURL = 'https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+'+TreeCount;
+    const myRequest = new Request(FakerequestURL);
+    fetch(myRequest)
     .then(response => response.json())
     .then(data => {
       for (const tree of data.records) {
