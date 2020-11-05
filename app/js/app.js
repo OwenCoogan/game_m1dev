@@ -1,12 +1,24 @@
-if(navigator.geolocation) {
-    console.log('Geolocalisation OK')
-    console.log(navigator.geolocation.getCurrentPosition);
-    fetch("https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&facet=typeemplacement&facet=domanialite&facet=arrondissement&facet=genre&facet=espece&facet=varieteoucultivar&facet=circonferenceencm&facet=hauteurenm&facet=stadedeveloppement")
-    .then(response => response.json())
-    .then(response => console.log(JSON.stringify(response)))
-    .catch(error => alert("Erreur : " + error));
-   
 
-  } else {
-    // Pas de support, proposer une alternative ?
+
+ 
+
+  window.addEventListener("DOMContentLoaded", (event) => {
+    
+    if(navigator.geolocation) {
+      console.log('Geolocalisation OK')
+      navigator.geolocation.getCurrentPosition(success);
+    } 
+    else {
+      // Pas de support, proposer une alternative ?
+    }
+  });
+
+
+  function success(pos) {
+    var crd = pos.coords;
+  
+    console.log('Votre position actuelle est :');
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude : ${crd.longitude}`);
+    console.log(`La précision est de ${crd.accuracy} mètres.`);
   }
