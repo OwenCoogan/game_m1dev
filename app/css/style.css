@@ -1,9 +1,10 @@
 #mapid { height: 90vh; }
 .treeIcon{
     content:'';
-    background-image:url("../src/46564.svg");
-    height:1rem;
-    width:1rem;
+    height:1rem !important;
+    width:1rem !important; 
+    border-radius:50px;
+    color:greenyellow;
 }
 header{
     display:flex;
