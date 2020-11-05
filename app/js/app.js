@@ -8,14 +8,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
       alert('Votre Geolocalisation est inactive')
     }
   });
-
+  const header=document.querySelector('header')
+  const positionHolder= document.createElement("div");
   function success(pos) {
-    var crd = pos.coords;
-    console.log('Votre position actuelle est :');
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude : ${crd.longitude}`);
+    const crd = pos.coords;
+    const positionLat = document.createTextNode(`Latitude : ${crd.latitude}`);
+    const positionLong = document.createTextNode(`Longitude : ${crd.longitude}`);
+    header.appendChild(positionLat)
+    header.appendChild(positionLong)
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
+
     const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
     var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -47,6 +50,5 @@ window.addEventListener("DOMContentLoaded", (event) => {
         L.marker([ latitudeTree, longitudeTree ], {icon: treeIcon}).addTo(mymap);
       }
     });
-
   }
  
