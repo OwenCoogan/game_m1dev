@@ -75,7 +75,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
           radius: 50
         }).addTo(mymap)
       .on('click',function(){
-        AddScore();
+        AddScore(circle);
       });
       }
     });
@@ -83,20 +83,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
   
   //SCORE STORAGE
   
-  function AddScore(this){
-    if(this.classList.contains("checked-zone")){
-      alert('you clicked this element once')
-    }
-    else{
+  function AddScore(circle){
+    if(!circle.classList.contains("checked-zone")){
       var aUpdated = a++;
       console.log(aUpdated)
       localStorage.setItem('Score', a );
       scoreHolder.innerHTML = a; 
     }
-    var aUpdated = a++;
-    console.log(aUpdated)
-    localStorage.setItem('Score', a );
-    scoreHolder.innerHTML = a;
+    else{
+    }
   }
 
 
