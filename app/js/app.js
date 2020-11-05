@@ -26,6 +26,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     positionLongHolder.innerHTML = positionLong;
     header.appendChild(positionLatHolder)
     header.appendChild(positionLongHolder)
+
+    // UPDATE SCORE AND POSITION
+    setInterval(function(){ updateData(positionLatHolder,positionLongHolder); }, 50000);
+
     const latitude = crd.latitude.toString();
     const longitude = crd.longitude.toString();
     const TreeCount = "1000"
@@ -34,19 +38,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
       positionLatHolder.innerHTML = positionLat;
       positionLongHolder.innerHTML = positionLong;
     }
-    setInterval(function(){ updateData(positionLatHolder,positionLongHolder); }, 100);
     const mymap = L.map('mapid').setView([ latitude, longitude ], 13);
     var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       maxZoom: 19
     });
     mymap.addLayer(osmLayer);
-    var treeIcon = L.icon({
-      iconUrl: '../app/src/46564.svg',
-      iconSize:     [10, 95], // size of the icon
-      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
+    var treeIcon = L.divIcon({className: 'treeIcon'});
     var gpsIcon = L.icon({
       iconUrl: '../app/src/location-pointer.svg',
       iconSize:     [38, 95], // size of the icon
@@ -62,6 +60,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     // Fausse URL ( Pas de datas sur le Val d'oise ;) )
     const FakerequestURL = 'https://opendata.paris.fr/api/records/1.0/search/?dataset=les-arbres&q=&rows=5000&facet=domanialite&facet=arrondissement&facet=libellefrancais&facet=circonferenceencm&facet=hauteurenm&facet=remarquable&geofilter.distance=48.8512725%2C+2.3800521%2C+'+TreeCount;
+
+
     const myRequest = new Request(FakerequestURL);
     fetch(myRequest)
     .then(response => response.json())
@@ -71,10 +71,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const longitudeTree = tree.fields.geo_point_2d[1];
         L.marker([ latitudeTree, longitudeTree ], {icon: treeIcon}).addTo(mymap);
         var circle = L.circle([ latitudeTree, longitudeTree ], {
-          color: 'red',
-          fillColor: '#f03',
+          color: 'green',
+          fillColor: 'transparent',
           fillOpacity: 0.1,
-          radius: 500
+          radius: 50
       }).addTo(mymap);
       }
       
@@ -92,7 +92,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
     var aUpdated = a++;
     console.log(aUpdated)
     localStorage.setItem('Score', a );
-    scoreHolder.innerHTML = a
+    scoreHolder.innerHTML = a;
   }
+
+
+
+
 
   
